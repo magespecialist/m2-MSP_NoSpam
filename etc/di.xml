@@ -30,7 +30,4 @@
             </argument>
         </arguments>
     </type>
-    <type name="Magento\Framework\AppInterface">
-        <plugin sortOrder="1" name="mSPAPIBoostAppInterface" type="MSP\APIBoost\Plugin\AppInterfacePlugin"/>
-    </type>
 </config>
