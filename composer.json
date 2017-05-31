@@ -1,0 +1,28 @@
+{
+    "name": "msp/nospam",
+    "description": "Comment Spammers, Harvesters and Suspicious users access prevention for Magento2 - Member of MageSpecialist SecuritySuite",
+    "require": {
+        "php": "~7.0.0",
+        "msp/common": "*",
+        "msp/security-suite-common": "*"
+    },
+    "suggest": {
+        "msp/security-suite": "Full MageSpecialist Security Suite"
+    },
+    "authors": [
+        {
+            "name": "Riccardo Tempesta",
+            "email": "riccardo.tempesta@magespecialist.it"
+        }
+    ],
+    "type": "magento2-module",
+    "license": "OSL 3.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MSP\\NoSpam\\": ""
+        }
+    }
+}
