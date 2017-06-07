@@ -106,7 +106,7 @@ class Honeypot implements ProviderInterface
         $matchedCategories = array_intersect($stopList, $categories);
         if (count($matchedCategories)) {
             $options = $this->stopList->toArray();
-            return $options[$matchedCategories[0]];
+            return $options[array_shift($matchedCategories)];
         }
 
         return false;
