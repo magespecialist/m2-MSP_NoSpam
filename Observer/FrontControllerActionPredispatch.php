@@ -25,6 +25,7 @@ use Magento\Framework\Event\ObserverInterface;
 use MSP\NoSpam\Api\NoSpamInterface;
 use MSP\SecuritySuiteCommon\Api\LogManagementInterface;
 use Magento\Framework\Event\ManagerInterface as EventInterface;
+use MSP\SecuritySuiteCommon\Api\SessionInterface;
 
 class FrontControllerActionPredispatch implements ObserverInterface
 {
@@ -43,14 +44,21 @@ class FrontControllerActionPredispatch implements ObserverInterface
      */
     private $event;
 
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+
     public function __construct(
         NoSpamInterface $noSpam,
         LogManagementInterface $logManagement,
-        EventInterface $event
+        EventInterface $event,
+        SessionInterface $session
     ) {
         $this->noSpam = $noSpam;
         $this->logManagement = $logManagement;
         $this->event = $event;
+        $this->session = $session;
     }
 
     /**
@@ -65,13 +73,14 @@ class FrontControllerActionPredispatch implements ObserverInterface
                 // avoid 30x codes for search engines.
 
                 if ($action == NoSpamInterface::ACTION_STOP) {
+                    $this->session->setEmergencyStopMessage(__('Your IP has been identified as: %1', $reason));
+
                     $request = $observer->getRequest();
                     $request->setMethod('GET');
                     $request->initForward();
                     $request->setModuleName('msp_security_suite');
                     $request->setControllerName('stop');
                     $request->setActionName('index');
-                    $request->setParams(['reason' => '' . __('Your IP has been identified as: %1', $reason)]);
                     $request->setDispatched(false);
                 }
 
