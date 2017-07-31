@@ -22,8 +22,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <msp_securitysuite>
-            <nospam>
+        <msp_securitysuite_nospam>
+            <general>
                 <actions_stop_list>customer_account_createpost
 customer_account_forgotpasswordpost
 customer_account_resetpasswordpost
@@ -32,10 +32,12 @@ newsletter_subscriber_new</actions_stop_list>
                 <actions_log_list>
 search_ajax_suggest
 catalogsearch_result_index</actions_log_list>
-                <honeypot_enabled>0</honeypot_enabled>
-                <honeypot_key></honeypot_key>
-                <honeypot_stop_list>1,2,3</honeypot_stop_list>
-            </nospam>
-        </msp_securitysuite>
+            </general>
+            <honeypot>
+                <enabled>0</enabled>
+                <key></key>
+                <stop_list>1,2,3</stop_list>
+            </honeypot>
+        </msp_securitysuite_nospam>
     </default>
 </config>

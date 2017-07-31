@@ -26,9 +26,9 @@ use MSP\NoSpam\Model\Config\Source\StopList;
 
 class Honeypot implements ProviderInterface
 {
-    const XML_PATH_ENABLED = 'msp_securitysuite/nospam/honeypot_enabled';
-    const XML_PATH_KEY = 'msp_securitysuite/nospam/honeypot_key';
-    const XML_PATH_STOP_LIST = 'msp_securitysuite/nospam/honeypot_stop_list';
+    const XML_PATH_ENABLED = 'msp_securitysuite_nospam/honeypot/enabled';
+    const XML_PATH_KEY = 'msp_securitysuite_nospam/honeypot/key';
+    const XML_PATH_STOP_LIST = 'msp_securitysuite_nospam/honeypot/stop_list';
 
     const DNS_DOMAIN = 'dnsbl.httpbl.org';
 

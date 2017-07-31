@@ -22,6 +22,9 @@ namespace MSP\NoSpam\Api;
 
 interface NoSpamInterface
 {
+    const XML_PATH_ACTIONS_STOP_LIST = 'msp_securitysuite_nospam/general/actions_stop_list';
+    const XML_PATH_ACTIONS_LOG_LIST = 'msp_securitysuite_nospam/general/actions_log_list';
+
     const ACTION_STOP = 'stop';
     const ACTION_LOG = 'log';
 

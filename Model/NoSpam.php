@@ -28,9 +28,6 @@ use MSP\NoSpam\Api\ProviderInterface;
 
 class NoSpam implements NoSpamInterface
 {
-    const XML_PATH_ACTIONS_STOP_LIST = 'msp_securitysuite/nospam/actions_stop_list';
-    const XML_PATH_ACTIONS_LOG_LIST = 'msp_securitysuite/nospam/actions_log_list';
-
     /**
      * @var ScopeConfigInterface
      */
@@ -78,8 +75,8 @@ class NoSpam implements NoSpamInterface
     {
         $fullActionName = strtolower($this->request->getFullActionName());
 
-        $stopList = trim(strtolower($this->scopeConfig->getValue(static::XML_PATH_ACTIONS_STOP_LIST)));
-        $logList = trim(strtolower($this->scopeConfig->getValue(static::XML_PATH_ACTIONS_LOG_LIST)));
+        $stopList = trim(strtolower($this->scopeConfig->getValue(NoSpamInterface::XML_PATH_ACTIONS_STOP_LIST)));
+        $logList = trim(strtolower($this->scopeConfig->getValue(NoSpamInterface::XML_PATH_ACTIONS_LOG_LIST)));
 
         $stopsList = preg_split('/[\W\s\n\r\,]+/', $stopList);
         $logsList = preg_split('/[\W\s\n\r\,]+/', $logList);

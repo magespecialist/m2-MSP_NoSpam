@@ -23,26 +23,41 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
 
     <system>
-        <section id="msp_securitysuite">
-            <group id="nospam" translate="label" type="text" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>No SPAM</label>
+        <section id="msp_securitysuite_nospam" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>No SPAM</label>
+            <tab>msp_securitysuite</tab>
+            <resource>MSP_SecuritySuite::config</resource>
 
-                <field id="actions_stop_list" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <comment><![CDATA[
+                    <div class="msp_securitysuite-comment">
+                        This module is a memeber of <strong><a target="_blank" href="https://github.com/magespecialist/m2-MSP_Security_Suite">MageSpecialist Security Suite</a></strong>. <a target="_blank" href="https://github.com/magespecialist/m2-MSP_Security_Suite">Click here</a> to see all the Security Suite modules.<br />
+                        Source code, installation and configuration guide: <a target="_blank" href="https://github.com/magespecialist/m2-MSP_Security_Suite">https://github.com/magespecialist/m2-MSP_Security_Suite</a>.
+                    </div>
+                ]]></comment>
+
+                <field canRestore="1" id="actions_stop_list" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Actions to stop on positive check</label>
                     <comment>Actions in this list are automatically logged</comment>
                 </field>
-                <field id="actions_log_list" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field canRestore="1" id="actions_log_list" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Actions to log on positive check</label>
                 </field>
-                <field id="honeypot_enabled" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+            </group>
+            <group id="honeypot" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Honeypot</label>
+
+                <field id="enabled" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Enable Honeypot</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="honeypot_key" translate="label comment" type="password" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="key" translate="label comment" type="password" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Honeypot BL Access Key</label>
                     <comment>Obtain for free at: http://www.projecthoneypot.org/</comment>
                 </field>
-                <field id="honeypot_stop_list" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field canRestore="1" id="stop_list" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Honeypot Stop list</label>
                     <source_model>MSP\NoSpam\Model\Config\Source\StopList</source_model>
                 </field>
