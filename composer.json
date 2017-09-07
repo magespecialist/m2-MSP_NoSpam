@@ -2,8 +2,8 @@
     "name": "msp/nospam",
     "description": "Comment Spammers, Harvesters and Suspicious users access prevention for Magento2 - Member of MageSpecialist SecuritySuite",
     "require": {
-        "php": "~7.0.0",
-        "msp/security-suite-common": "^1.2"
+        "php": "^7.0|^7.1",
+        "msp/security-suite-common": ">=1.3"
     },
     "suggest": {
         "msp/security-suite": "Full MageSpecialist Security Suite"
