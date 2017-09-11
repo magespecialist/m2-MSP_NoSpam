@@ -29,9 +29,13 @@ Set your API key according to the one you obtained from Honeypot website.
  
 Remember to flush your cache.
 
-## Threat detected
+## Threat detected (with stealth mode disabled)
 
 <img src="https://raw.githubusercontent.com/magespecialist/m2-MSP_NoSpam/master/screenshots/detected.png" />
+
+## Threat detected (with stealth mode enabled)
+
+<img src="https://raw.githubusercontent.com/magespecialist/m2-MSP_NoSpam/master/screenshots/detected_stealth.png" />
 
 ## Logged entries ##
 
