@@ -69,7 +69,6 @@ class FrontControllerActionPredispatch implements ObserverInterface
     {
         if ($action = $this->noSpam->shouldCheckAction()) {
             if ($reason = $this->noSpam->shouldStopIp()) {
-                $reason = 'test';
                 $this->event->dispatch(LogManagementInterface::EVENT_ACTIVITY, [
                     'module' => 'MSP_NoSpam',
                     'message' => $reason,
