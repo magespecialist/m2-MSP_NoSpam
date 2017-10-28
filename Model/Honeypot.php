@@ -66,15 +66,15 @@ class Honeypot implements ProviderInterface
 
     /**
      * Verify visitor. Return a reason if suspicious or false if ok
-     * @param $ip
+     * @param string $ipAddress
      * @return false|string
      */
-    public function shouldStopIp($ip)
+    public function shouldStopIp($ipAddress)
     {
         $key = $this->scopeConfig->getValue(static::XML_PATH_KEY);
 
         $queryHost =
-            $key . "." . implode(".", array_reverse(explode(".", $ip))) .
+            $key . "." . implode(".", array_reverse(explode(".", $ipAddress))) .
             "." . static::DNS_DOMAIN;
 
         $res = explode(".", gethostbyname($queryHost));
@@ -82,7 +82,7 @@ class Honeypot implements ProviderInterface
             return false;
         }
 
-        $visitorType = intval($res[3]);
+        $visitorType = (int) $res[3];
 
         $stopList = explode(',', $this->scopeConfig->getValue(static::XML_PATH_STOP_LIST));
         $categories = [];
@@ -104,7 +104,7 @@ class Honeypot implements ProviderInterface
         }
 
         $matchedCategories = array_intersect($stopList, $categories);
-        if (count($matchedCategories)) {
+        if (!empty($matchedCategories)) {
             $options = $this->stopList->toArray();
             return $options[array_shift($matchedCategories)];
         }

@@ -25,6 +25,7 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\HTTP\PhpEnvironment\RemoteAddress;
 use MSP\NoSpam\Api\NoSpamInterface;
 use MSP\NoSpam\Api\ProviderInterface;
+use MSP\SecuritySuiteCommon\Api\AlertInterface;
 
 class NoSpam implements NoSpamInterface
 {
@@ -37,11 +38,6 @@ class NoSpam implements NoSpamInterface
      * @var array
      */
     private $providers;
-
-    /**
-     * @var CacheType
-     */
-    private $cacheType;
 
     /**
      * @var RemoteAddress
@@ -57,12 +53,10 @@ class NoSpam implements NoSpamInterface
         ScopeConfigInterface $scopeConfig,
         RemoteAddress $remoteAddress,
         RequestInterface $request,
-        CacheType $cacheType,
         $providers = []
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->providers = $providers;
-        $this->cacheType = $cacheType;
         $this->remoteAddress = $remoteAddress;
         $this->request = $request;
     }
@@ -82,11 +76,11 @@ class NoSpam implements NoSpamInterface
         $logsList = preg_split('/[\W\s\n\r\,]+/', $logList);
 
         if (in_array($fullActionName, $stopsList)) {
-            return NoSpamInterface::ACTION_STOP;
+            return AlertInterface::ACTION_LOCKDOWN;
         }
 
         if (in_array($fullActionName, $logsList)) {
-            return NoSpamInterface::ACTION_LOG;
+            return AlertInterface::ACTION_LOG;
         }
 
         return false;
@@ -100,7 +94,7 @@ class NoSpam implements NoSpamInterface
     {
         $remoteIp = $this->remoteAddress->getRemoteAddress();
 
-        foreach ($this->providers as $providerName => $provider) {
+        foreach ($this->providers as $provider) {
             if ($provider->isEnabled()) {
                 /** @var ProviderInterface $provider */
                 if ($reason = $provider->shouldStopIp($remoteIp)) {

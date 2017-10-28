@@ -24,10 +24,10 @@ interface ProviderInterface
 {
     /**
      * Verify visitor. Return a reason if suspicious or false if ok
-     * @param $ip
+     * @param string $ipAddress
      * @return false|string
      */
-    public function shouldStopIp($ip);
+    public function shouldStopIp($ipAddress);
 
     /**
      * Return true if provider is enabled

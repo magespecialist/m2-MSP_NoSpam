@@ -23,9 +23,8 @@ namespace MSP\NoSpam\Observer;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use MSP\NoSpam\Api\NoSpamInterface;
+use MSP\SecuritySuiteCommon\Api\AlertInterface;
 use MSP\SecuritySuiteCommon\Api\LockDownInterface;
-use MSP\SecuritySuiteCommon\Api\LogManagementInterface;
-use Magento\Framework\Event\ManagerInterface as EventInterface;
 
 class FrontControllerActionPredispatch implements ObserverInterface
 {
@@ -35,30 +34,23 @@ class FrontControllerActionPredispatch implements ObserverInterface
     private $noSpam;
 
     /**
-     * @var LogManagementInterface
-     */
-    private $logManagement;
-
-    /**
-     * @var EventInterface
-     */
-    private $event;
-
-    /**
      * @var LockDownInterface
      */
     private $lockDown;
 
+    /**
+     * @var AlertInterface
+     */
+    private $alert;
+
     public function __construct(
         NoSpamInterface $noSpam,
-        LogManagementInterface $logManagement,
-        EventInterface $event,
+        AlertInterface $alert,
         LockDownInterface $lockDown
     ) {
         $this->noSpam = $noSpam;
-        $this->logManagement = $logManagement;
-        $this->event = $event;
         $this->lockDown = $lockDown;
+        $this->alert = $alert;
     }
 
     /**
@@ -69,13 +61,15 @@ class FrontControllerActionPredispatch implements ObserverInterface
     {
         if ($action = $this->noSpam->shouldCheckAction()) {
             if ($reason = $this->noSpam->shouldStopIp()) {
-                $this->event->dispatch(LogManagementInterface::EVENT_ACTIVITY, [
-                    'module' => 'MSP_NoSpam',
-                    'message' => $reason,
-                    'action' => $action,
-                ]);
+                $this->alert->event(
+                    'MSP_NoSpam',
+                    'IP identified as: ' . $reason,
+                    AlertInterface::LEVEL_WARNING,
+                    null,
+                    $action
+                );
 
-                if ($action == NoSpamInterface::ACTION_STOP) {
+                if ($action == AlertInterface::ACTION_LOCKDOWN) {
                     /** @var \Magento\Framework\App\Action\Action $controllerAction */
                     $controllerAction = $observer->getEvent()->getControllerAction();
                     $this->lockDown->doActionLockdown(
